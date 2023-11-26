@@ -9,14 +9,14 @@ import 'package:smd/widgets/button.dart';
 import 'package:smd/widgets/header.dart';
 import 'package:smd/widgets/textformfield.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController loginEmailController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
 
@@ -69,33 +69,38 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: device.height * 0.03),
+
+                    //*  Text Fields Start Here
+
                     Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 12),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: device.width * 0.08),
                         child: TextInput(
                           controller: loginEmailController,
-                          obsec: false,
                           text: 'Email',
-                          icon: FontAwesomeIcons.envelope,
+                          icon: FontAwesomeIcons.solidEnvelope,
                         )),
                     Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 12),
-                        child: TextInput(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: device.width * 0.08),
+                        child: TextInputObsec(
                           controller: loginPasswordController,
                           obsec: true,
                           text: 'Password',
                           icon: FontAwesomeIcons.key,
                         )),
+
+                    //* Text Fields End Here
+
                     SizedBox(height: device.height * 0.02),
                     Button(
                       text: 'Login',
                       onPressed: () {},
                       color: greenClr,
-                      width: device.width * 0.6,
+                      width: device.width * 0.4,
                       fontSize: 16,
                     ),
-                    SizedBox(height: device.height * 0.015),
+                    SizedBox(height: device.height * 0.02),
                     SizedBox(
                       width: device.width * 0.6,
                       child: GestureDetector(
@@ -103,7 +108,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           setState(() {
                             color = orangeClr;
                           });
-                          Timer(const Duration(seconds: 2), () {
+                          Timer(const Duration(seconds: 1), () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(

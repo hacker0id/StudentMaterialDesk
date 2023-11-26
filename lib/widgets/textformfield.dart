@@ -10,6 +10,47 @@ class TextInput extends StatefulWidget {
       {super.key,
       required this.icon,
       required this.text,
+      required this.controller});
+  IconData icon;
+  String text;
+
+  TextEditingController controller;
+
+  @override
+  State<TextInput> createState() => _TextInputState();
+}
+
+class _TextInputState extends State<TextInput> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      autocorrect: false,
+      controller: widget.controller,
+      cursorColor: Colors.white,
+      cursorHeight: 16,
+      style: const TextStyle(color: Colors.white, fontSize: 16),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: orangeClr.withOpacity(0.75),
+        enabledBorder: kBorderStyle,
+        focusedBorder: kBorderStyle,
+        prefixIcon: Icon(widget.icon),
+        prefixIconColor: Colors.white,
+        hintText: widget.text,
+        hintStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+}
+
+class TextInputObsec extends StatefulWidget {
+  TextInputObsec(
+      {super.key,
+      required this.icon,
+      required this.text,
       required this.obsec,
       required this.controller});
   IconData icon;
@@ -18,10 +59,10 @@ class TextInput extends StatefulWidget {
   TextEditingController controller;
 
   @override
-  State<TextInput> createState() => _TextInputState();
+  State<TextInputObsec> createState() => _TextInputObsecState();
 }
 
-class _TextInputState extends State<TextInput> {
+class _TextInputObsecState extends State<TextInputObsec> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -38,16 +79,14 @@ class _TextInputState extends State<TextInput> {
         focusedBorder: kBorderStyle,
         prefixIcon: Icon(widget.icon),
         prefixIconColor: Colors.white,
-        suffixIcon: widget.obsec
-            ? IconButton(
-                onPressed: () {
-                  setState(() {
-                    //widget.obsec = !widget.obsec;
-                  });
-                },
-                icon: Icon(FontAwesomeIcons.eye),
-              )
-            : null,
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              widget.obsec = !widget.obsec;
+            });
+          },
+          icon: const Icon(FontAwesomeIcons.eye),
+        ),
         suffixIconColor: Colors.white,
         hintText: widget.text,
         hintStyle: const TextStyle(

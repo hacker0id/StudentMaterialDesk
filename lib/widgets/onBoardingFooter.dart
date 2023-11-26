@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:smd/screens/MainPage.dart';
-import 'package:smd/screens/WelcomeScreen.dart';
+import 'package:smd/screens/LoginScreen.dart';
 import 'package:smd/theme/colors.dart';
 
 class OnBoardingFooter extends StatelessWidget {
@@ -48,7 +48,7 @@ class OnBoardingFooter extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const WelcomeScreen(),
+                          builder: (_) => const LoginScreen(),
                         ),
                       );
                     },
