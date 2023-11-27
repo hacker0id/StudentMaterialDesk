@@ -31,7 +31,7 @@ class _TextInputState extends State<TextInput> {
       style: const TextStyle(color: Colors.white, fontSize: 16),
       decoration: InputDecoration(
         filled: true,
-        fillColor: orangeClr.withOpacity(0.75),
+        fillColor: orangeClr.withOpacity(0.72),
         enabledBorder: kBorderStyle,
         focusedBorder: kBorderStyle,
         prefixIcon: Icon(widget.icon),
