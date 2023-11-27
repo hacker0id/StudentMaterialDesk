@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           const Header(),
           Expanded(
-            flex: 2,
+            flex: device.height <= 680 ? 3 : 2,
             child: Container(
               decoration: const BoxDecoration(
                 boxShadow: [

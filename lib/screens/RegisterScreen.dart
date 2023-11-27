@@ -1,3 +1,6 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smd/screens/MainPage.dart';
@@ -24,8 +27,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             const Header(),
             Expanded(
-              flex: 4,
-              child: Container(
+                flex: device.height <= 680 ? 5 : 4,
+                child: Container(
                   decoration: const BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -51,7 +54,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: device.width,
                     child: Column(
                       children: [
-                        SizedBox(height: device.height * 0.03),
+                        SizedBox(
+                            height: device.height <= 680
+                                ? device.height * 0.015
+                                : device.height * 0.03),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               //vertical: device.height * 0.01,
@@ -63,31 +69,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: nameController,
                                 icon: FontAwesomeIcons.solidUser,
                               ),
-                              SizedBox(height: device.height * 0.015),
+                              device.height <= 680
+                                  ? SizedBox(height: device.height * 0.01)
+                                  : SizedBox(height: device.height * 0.015),
                               TextInput(
                                 text: 'Email',
                                 controller: nameController,
                                 icon: FontAwesomeIcons.solidEnvelope,
                               ),
-                              SizedBox(height: device.height * 0.015),
+                              device.height <= 680
+                                  ? SizedBox(height: device.height * 0.01)
+                                  : SizedBox(height: device.height * 0.015),
                               TextInput(
                                 text: 'Confirm Email',
                                 controller: nameController,
                                 icon: FontAwesomeIcons.envelopeCircleCheck,
                               ),
-                              SizedBox(height: device.height * 0.015),
+                              device.height <= 680
+                                  ? SizedBox(height: device.height * 0.01)
+                                  : SizedBox(height: device.height * 0.015),
                               TextInput(
                                 text: 'Phone Number',
                                 controller: nameController,
                                 icon: FontAwesomeIcons.phone,
                               ),
-                              SizedBox(height: device.height * 0.02),
-                              Container(
+                              device.height <= 680
+                                  ? SizedBox(height: device.height * 0.015)
+                                  : SizedBox(height: device.height * 0.02),
+                              SizedBox(
                                 height: device.height * 0.16,
-                                color: greyClr,
-                                child: const Center(
-                                  child: Text('College Slider Goes Here'),
-                                ),
+                                child: CarouselSlider(
+                                    items: [
+                                      CarouselItem(
+                                          imagePath:
+                                              'assets/Images/register/ssm.png'),
+                                      CarouselItem(
+                                          imagePath:
+                                              'assets/Images/register/uok.png'),
+                                      CarouselItem(
+                                          imagePath:
+                                              'assets/Images/register/iust.png'),
+                                    ],
+                                    options: CarouselOptions(
+                                      height: device.height * 0.16,
+                                      enlargeCenterPage: true,
+                                      enlargeFactor: 0.5,
+                                      aspectRatio: 16 / 9,
+                                      enableInfiniteScroll: true,
+                                      viewportFraction: 0.5,
+                                    )),
                               )
                             ],
                           ),
@@ -102,9 +132,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
-                  )),
-            ),
+                  ),
+                )),
           ],
         ));
+  }
+
+  Widget CarouselItem({required String imagePath}) {
+    return Container(
+      height: device.height <= 680 ? device.height * 0.05 : device.height * 0.1,
+      width: device.width * 0.4,
+      decoration: BoxDecoration(
+          //color: greenClr,
+          border: Border.all(width: 5, color: greenClr.withOpacity(0.85)),
+          borderRadius: BorderRadius.circular(16)),
+      child: Image.asset(
+        imagePath,
+        fit: BoxFit.contain,
+      ),
+    );
   }
 }

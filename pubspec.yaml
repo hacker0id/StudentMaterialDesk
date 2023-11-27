@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   smooth_page_indicator: ^1.1.0
   font_awesome_flutter: ^10.6.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ flutter:
   assets:
     - assets/Images/logo/
     - assets/Images/onBoarding/
+    - assets/Images/register/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
