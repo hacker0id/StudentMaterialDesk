@@ -98,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: greenClr,
                           text: 'Submit',
                           onPressed: () {},
-                          width: device.width * 0.6,
+                          width: device.width * 0.4,
                         ),
                       ],
                     ),
