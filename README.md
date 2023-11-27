@@ -1,6 +1,12 @@
-# smd
+# Student Material Desk
 
-A new Flutter project.
+SMD is project by Student for Students, one stop online solutions to download notes, watch video lectures & take references from past year papers.
+SMD is currently in-making.
+We will add more categories as we go on building the app.
+
+
+
+
 
 ## Getting Started
 
