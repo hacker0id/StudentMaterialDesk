@@ -3,8 +3,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smd/components/Controllers.dart';
 import 'package:smd/screens/MainPage.dart';
 import 'package:smd/theme/colors.dart';
+import 'package:smd/widgets/RegisterCarousel.dart';
 import 'package:smd/widgets/button.dart';
 import 'package:smd/widgets/header.dart';
 import 'package:smd/widgets/textformfield.dart';
@@ -15,6 +17,9 @@ class RegisterScreen extends StatefulWidget {
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
+
+int _currentIndex = 0;
+List<Color> _borderColors = List.generate(3, (index) => greenClr);
 
 class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameController = TextEditingController();
@@ -80,11 +85,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               device.height <= 680
                                   ? SizedBox(height: device.height * 0.01)
                                   : SizedBox(height: device.height * 0.015),
-                              TextInput(
-                                text: 'Confirm Email',
-                                controller: nameController,
-                                icon: FontAwesomeIcons.envelopeCircleCheck,
-                              ),
+                              TextInputObsec(
+                                  icon: FontAwesomeIcons.key,
+                                  text: 'Password',
+                                  obsec: true,
+                                  controller: registerPasswordController),
                               device.height <= 680
                                   ? SizedBox(height: device.height * 0.01)
                                   : SizedBox(height: device.height * 0.015),
@@ -98,26 +103,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   : SizedBox(height: device.height * 0.02),
                               SizedBox(
                                 height: device.height * 0.16,
+                                // child: CarouselSlider(
+                                //   items: List.generate(
+                                //     3,
+                                //     (index) => BottomSlider(
+                                //       index: index,
+                                //     ),
+                                //   ),
+                                //   options: CarouselOptions(
+                                //     onPageChanged: (index, reason) {
+                                //       setState(() {
+                                //         currentIndex = index;
+                                //       });
+                                //     },
+                                //     //initialPage: 0,
+                                //     viewportFraction: 0.5,
+                                //     height: device.height * 0.16,
+                                //     enlargeCenterPage: true,
+                                //     enlargeFactor: 0.5,
+                                //     aspectRatio: 16 / 9,
+                                //   ),
+                                // ),
                                 child: CarouselSlider(
-                                    items: [
-                                      CarouselItem(
-                                          imagePath:
-                                              'assets/Images/register/ssm.png'),
-                                      CarouselItem(
-                                          imagePath:
-                                              'assets/Images/register/uok.png'),
-                                      CarouselItem(
-                                          imagePath:
-                                              'assets/Images/register/iust.png'),
-                                    ],
-                                    options: CarouselOptions(
-                                      height: device.height * 0.16,
-                                      enlargeCenterPage: true,
-                                      enlargeFactor: 0.5,
-                                      aspectRatio: 16 / 9,
-                                      enableInfiniteScroll: true,
-                                      viewportFraction: 0.5,
-                                    )),
+                                  options: CarouselOptions(
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _currentIndex = index;
+                                      });
+                                    },
+                                    viewportFraction: 0.5,
+                                    height: device.height * 0.16,
+                                    enlargeCenterPage: true,
+                                    enlargeFactor: 0.5,
+                                    aspectRatio: 16 / 9,
+                                  ),
+                                  items: List.generate(3, (index) {
+                                    return BottomSlider(
+                                      index: index,
+                                      borderColor: _borderColors[index],
+                                      onTap: () {
+                                        setState(() {
+                                          _borderColors = List.generate(
+                                              3, (index) => greenClr);
+                                          _borderColors[index] = orangeClr;
+                                        });
+                                      },
+                                    );
+                                  }),
+                                ),
                               )
                             ],
                           ),
@@ -136,20 +169,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 )),
           ],
         ));
-  }
-
-  Widget CarouselItem({required String imagePath}) {
-    return Container(
-      height: device.height <= 680 ? device.height * 0.05 : device.height * 0.1,
-      width: device.width * 0.4,
-      decoration: BoxDecoration(
-          //color: greenClr,
-          border: Border.all(width: 5, color: greenClr.withOpacity(0.85)),
-          borderRadius: BorderRadius.circular(16)),
-      child: Image.asset(
-        imagePath,
-        fit: BoxFit.contain,
-      ),
-    );
   }
 }
