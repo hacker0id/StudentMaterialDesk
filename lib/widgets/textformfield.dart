@@ -10,9 +10,11 @@ class TextInput extends StatefulWidget {
       {super.key,
       required this.icon,
       required this.text,
-      required this.controller});
+      required this.controller,
+      required this.type});
   IconData icon;
   String text;
+  TextInputType type;
 
   TextEditingController controller;
 
@@ -24,10 +26,11 @@ class _TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.type,
       autocorrect: false,
       controller: widget.controller,
       cursorColor: Colors.white,
-      cursorHeight: 16,
+      //cursorHeight: 16,
       style: const TextStyle(color: Colors.white, fontSize: 16),
       decoration: InputDecoration(
         filled: true,
@@ -52,11 +55,13 @@ class TextInputObsec extends StatefulWidget {
       required this.icon,
       required this.text,
       required this.obsec,
-      required this.controller});
+      required this.controller,
+      required this.type});
   IconData icon;
   String text;
   bool obsec;
   TextEditingController controller;
+  TextInputType type;
 
   @override
   State<TextInputObsec> createState() => _TextInputObsecState();
@@ -66,11 +71,12 @@ class _TextInputObsecState extends State<TextInputObsec> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.type,
       autocorrect: false,
       controller: widget.controller,
       obscureText: widget.obsec,
       cursorColor: Colors.white,
-      cursorHeight: 16,
+      //cursorHeight: 16,
       style: const TextStyle(color: Colors.white, fontSize: 16),
       decoration: InputDecoration(
         filled: true,

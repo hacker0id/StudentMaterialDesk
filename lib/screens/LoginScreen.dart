@@ -9,6 +9,8 @@ import 'package:smd/widgets/button.dart';
 import 'package:smd/widgets/header.dart';
 import 'package:smd/widgets/textformfield.dart';
 
+//! FTA : only when details are entered, submit btn is enabled,
+//! else not
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -19,6 +21,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController loginEmailController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
+  bool enableLoginButton = false;
 
   Color color = Colors.black;
   @override
@@ -54,78 +57,117 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: SizedBox(
                 width: device.width,
-                child: Column(
-                  children: [
-                    SizedBox(height: device.height * 0.025),
-                    const Text(
-                      'Hello Champ 🎖 ',
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: device.height * 0.005),
-                    const Text(
-                      'Glad To Have You Onboard 🎓 ',
-                      style: TextStyle(fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: device.height * 0.03),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: device.height * 0.025),
+                      const Text(
+                        'Hello Champ 🎖',
+                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: device.height * 0.005),
+                      const Text(
+                        'Glad To Have You Onboard 🎓',
+                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: device.height * 0.03),
 
-                    //*  Text Fields Start Here
+                      //*  Text Fields Start Here
 
-                    Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: device.width * 0.08),
-                        child: TextInput(
-                          controller: loginEmailController,
-                          text: 'Email',
-                          icon: FontAwesomeIcons.solidEnvelope,
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: device.width * 0.08),
-                        child: TextInputObsec(
-                          controller: loginPasswordController,
-                          obsec: true,
-                          text: 'Password',
-                          icon: FontAwesomeIcons.key,
-                        )),
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12.0, horizontal: device.width * 0.08),
+                          child: TextInput(
+                            type: TextInputType.name,
+                            controller: loginEmailController,
+                            text: 'Email',
+                            icon: FontAwesomeIcons.solidEnvelope,
+                          )),
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12.0, horizontal: device.width * 0.08),
+                          child: TextInputObsec(
+                            type: TextInputType.name,
+                            controller: loginPasswordController,
+                            obsec: true,
+                            text: 'Password',
+                            icon: FontAwesomeIcons.key,
+                          )),
 
-                    //* Text Fields End Here
+                      //* Text Fields End Here
 
-                    SizedBox(height: device.height * 0.02),
-                    Button(
-                      text: 'Login',
-                      onPressed: () {},
-                      color: greenClr,
-                      width: device.width * 0.4,
-                      fontSize: 16,
-                    ),
-                    SizedBox(height: device.height * 0.02),
-                    SizedBox(
-                      width: device.width * 0.6,
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            color = orangeClr;
-                          });
-                          Timer(const Duration(seconds: 1), () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const RegisterScreen(),
-                              ),
-                            );
-                          });
-                        },
-                        child: Center(
-                          child: Text(
-                            'Not Registered? SignUp',
-                            style: TextStyle(color: color),
+                      SizedBox(height: device.height * 0.02),
+                      Opacity(
+                        opacity: enableLoginButton ? 1 : 0.5,
+                        child: Button(
+                          text: 'Login',
+                          onPressed: enableLoginButton
+                              ? () {}
+                              : () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      //width: device.width * 0.7,
+                                      elevation: 8,
+                                      duration: const Duration(seconds: 2),
+                                      dismissDirection: DismissDirection.up,
+                                      shape: const RoundedRectangleBorder(
+                                        // side: BorderSide(
+                                        //   // width: 2,
+                                        //   color: Colors.black,
+                                        // ),
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(16),
+                                          topRight: Radius.circular(16),
+                                        ),
+                                      ),
+                                      backgroundColor:
+                                          orangeClr.withOpacity(0.72),
+                                      behavior: SnackBarBehavior.fixed,
+                                      content: const Center(
+                                        child: Text(
+                                          'Enter Login Details',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                          color: greenClr,
+                          width: device.width * 0.4,
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(height: device.height * 0.02),
+                      SizedBox(
+                        width: device.width * 0.6,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              color = orangeClr;
+                            });
+                            Timer(const Duration(seconds: 1), () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const RegisterScreen(),
+                                ),
+                              );
+                            });
+                          },
+                          child: Center(
+                            child: Text(
+                              'Not Registered? SignUp',
+                              style: TextStyle(color: color),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -133,5 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+
+  void checkLoginButton() {
+    setState(() {
+      enableLoginButton = loginEmailController.text.isNotEmpty &&
+          loginPasswordController.text.isNotEmpty;
+    });
   }
 }
