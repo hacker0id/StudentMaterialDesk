@@ -6,16 +6,18 @@ import 'package:smd/theme/colors.dart';
 import 'package:smd/theme/style.dart';
 
 class TextInput extends StatefulWidget {
-  TextInput(
-      {super.key,
-      required this.icon,
-      required this.text,
-      required this.controller,
-      required this.type});
+  TextInput({
+    super.key,
+    required this.icon,
+    required this.text,
+    required this.controller,
+    required this.type,
+    required this.onChanged,
+  });
   IconData icon;
   String text;
   TextInputType type;
-
+  Function(String) onChanged;
   TextEditingController controller;
 
   @override
@@ -26,6 +28,7 @@ class _TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChanged,
       keyboardType: widget.type,
       autocorrect: false,
       controller: widget.controller,
@@ -50,18 +53,21 @@ class _TextInputState extends State<TextInput> {
 }
 
 class TextInputObsec extends StatefulWidget {
-  TextInputObsec(
-      {super.key,
-      required this.icon,
-      required this.text,
-      required this.obsec,
-      required this.controller,
-      required this.type});
+  TextInputObsec({
+    super.key,
+    required this.icon,
+    required this.text,
+    required this.obsec,
+    required this.controller,
+    required this.type,
+    required this.onChanged,
+  });
   IconData icon;
   String text;
   bool obsec;
   TextEditingController controller;
   TextInputType type;
+  Function(String) onChanged;
 
   @override
   State<TextInputObsec> createState() => _TextInputObsecState();
@@ -71,6 +77,7 @@ class _TextInputObsecState extends State<TextInputObsec> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChanged,
       keyboardType: widget.type,
       autocorrect: false,
       controller: widget.controller,

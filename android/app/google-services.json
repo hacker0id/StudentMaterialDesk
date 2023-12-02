@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "217524825237",
+    "project_id": "studentmaterialdesk",
+    "storage_bucket": "studentmaterialdesk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217524825237:android:063874f0494878503eff9c",
+        "android_client_info": {
+          "package_name": "com.example.smd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqGPC6zGbggr-6M4jI9dpjDJf5RToKVLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

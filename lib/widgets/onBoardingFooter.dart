@@ -31,7 +31,7 @@ class OnBoardingFooter extends StatelessWidget {
               image: AssetImage(imageLocation),
             ),
           ),
-          SizedBox(height: device.height * 0.01),
+          SizedBox(height: device.height * 0.025),
           Text(
             text,
             style: const TextStyle(color: Colors.black),

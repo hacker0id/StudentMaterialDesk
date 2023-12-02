@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smd/components/Controllers.dart';
+import 'package:smd/methods.dart';
 import 'package:smd/screens/MainPage.dart';
 import 'package:smd/screens/WelcomeScreen.dart';
 import 'package:smd/theme/colors.dart';
@@ -26,6 +27,15 @@ bool _enableSubmit = false;
 
 class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameController = TextEditingController();
+  //* Enable Login After Data Entered
+  void enableSubmit() {
+    setState(() {
+      _enableSubmit = registerEmailController.text.isNotEmpty &&
+          registerPasswordController.text.isNotEmpty &&
+          registerNameController.text.isNotEmpty &&
+          registerPhNumberController.text.isNotEmpty;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +87,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Column(
                               children: [
                                 TextInput(
+                                  onChanged: (text) {
+                                    enableSubmit();
+                                  },
                                   type: TextInputType.name,
                                   text: 'Name',
                                   controller: registerNameController,
@@ -86,6 +99,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ? SizedBox(height: device.height * 0.01)
                                     : SizedBox(height: device.height * 0.015),
                                 TextInput(
+                                  onChanged: (text) {
+                                    enableSubmit();
+                                  },
                                   type: TextInputType.emailAddress,
                                   text: 'Email',
                                   controller: registerEmailController,
@@ -95,6 +111,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ? SizedBox(height: device.height * 0.01)
                                     : SizedBox(height: device.height * 0.015),
                                 TextInputObsec(
+                                    onChanged: (text) {
+                                      enableSubmit();
+                                    },
                                     type: TextInputType.name,
                                     icon: FontAwesomeIcons.key,
                                     text: 'Password',
@@ -104,6 +123,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ? SizedBox(height: device.height * 0.01)
                                     : SizedBox(height: device.height * 0.015),
                                 TextInput(
+                                  onChanged: (text) {
+                                    if (text.toString().trim().length == 10) {
+                                      if (isValidPhoneNumber(
+                                          text.toString().trim())) {
+                                        enableSubmit();
+                                      } else {
+                                        setState(() {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              elevation: 8,
+                                              duration:
+                                                  const Duration(seconds: 2),
+                                              dismissDirection:
+                                                  DismissDirection.up,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(16),
+                                                  topRight: Radius.circular(16),
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  orangeClr.withOpacity(0.72),
+                                              behavior: SnackBarBehavior.fixed,
+                                              content: const Center(
+                                                child: Text(
+                                                  'Please  Enter A Valid Phone Number',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                      }
+                                    }
+                                  },
                                   type: TextInputType.phone,
                                   text: 'Phone Number',
                                   controller: registerPhNumberController,
@@ -165,11 +223,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                                   //^ College Selected? Navigate To WelcomeScreen
                                   ? () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  const WelcomeScreen()));
+                                      if (isValidEmail(registerEmailController
+                                              .text
+                                              .trim()) &&
+                                          isValidPhoneNumber(
+                                              registerPhNumberController.text
+                                                  .toString()
+                                                  .trim())) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    const WelcomeScreen()));
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            elevation: 8,
+                                            duration:
+                                                const Duration(seconds: 2),
+                                            dismissDirection:
+                                                DismissDirection.up,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(16),
+                                                topRight: Radius.circular(16),
+                                              ),
+                                            ),
+                                            backgroundColor:
+                                                orangeClr.withOpacity(0.72),
+                                            behavior: SnackBarBehavior.fixed,
+                                            content: const Center(
+                                              child: Text(
+                                                textAlign: TextAlign.center,
+                                                'Error While Registering\nPlease Check Your Details',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 16,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     }
                                   :
 

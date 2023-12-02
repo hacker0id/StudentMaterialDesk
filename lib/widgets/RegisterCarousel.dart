@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:smd/screens/MainPage.dart';
-import 'package:smd/theme/colors.dart';
 
 class BottomSlider extends StatelessWidget {
   final int index;

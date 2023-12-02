@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smd/methods.dart';
 import 'package:smd/screens/MainPage.dart';
 import 'package:smd/screens/RegisterScreen.dart';
 import 'package:smd/theme/colors.dart';
@@ -19,11 +20,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+//..
+  bool isEmailValid = false;
   TextEditingController loginEmailController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
   bool enableLoginButton = false;
-
   Color color = Colors.black;
+
+  //* Enable Login After Data Entered
+  void enableLogin() {
+    setState(() {
+      enableLoginButton = loginEmailController.text.isNotEmpty &&
+          loginPasswordController.text.isNotEmpty;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: EdgeInsets.symmetric(
                               vertical: 12.0, horizontal: device.width * 0.08),
                           child: TextInput(
+                            onChanged: (text) {
+                              enableLogin();
+                            },
                             type: TextInputType.name,
                             controller: loginEmailController,
                             text: 'Email',
@@ -89,6 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: EdgeInsets.symmetric(
                               vertical: 12.0, horizontal: device.width * 0.08),
                           child: TextInputObsec(
+                            onChanged: (text) {
+                              enableLogin();
+                            },
                             type: TextInputType.name,
                             controller: loginPasswordController,
                             obsec: true,
@@ -104,7 +121,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Button(
                           text: 'Login',
                           onPressed: enableLoginButton
-                              ? () {}
+                              ? () {
+                                  isEmailValid = isValidEmail(
+                                      loginEmailController.text.trim());
+                                  if (isEmailValid) {
+                                    debugPrint(
+                                        '${loginEmailController.text.trim()} is a valid email');
+                                  } else {
+                                    debugPrint(
+                                        '${loginEmailController.text.trim()} is not a valid email');
+                                  }
+                                }
                               : () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
