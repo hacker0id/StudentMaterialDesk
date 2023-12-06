@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smd/Firebase/firebase_methods.dart';
 import 'package:smd/components/Controllers.dart';
 import 'package:smd/methods.dart';
 import 'package:smd/screens/MainPage.dart';
@@ -114,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     onChanged: (text) {
                                       enableSubmit();
                                     },
-                                    type: TextInputType.name,
+                                    type: TextInputType.text,
                                     icon: FontAwesomeIcons.key,
                                     text: 'Password',
                                     obsec: true,
@@ -222,7 +223,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onPressed: _enableSubmit
 
                                   //^ College Selected? Navigate To WelcomeScreen
-                                  ? () {
+                                  ? () async {
                                       if (isValidEmail(registerEmailController
                                               .text
                                               .trim()) &&
@@ -230,6 +231,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               registerPhNumberController.text
                                                   .toString()
                                                   .trim())) {
+                                        registerUser(
+                                            registerEmailController.text.trim(),
+                                            registerPasswordController.text
+                                                .trim());
+
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smd/Firebase/firebase_methods.dart';
 import 'package:smd/methods.dart';
 import 'package:smd/screens/MainPage.dart';
 import 'package:smd/screens/RegisterScreen.dart';
@@ -37,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    device = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: greenClr,
       body: Column(
@@ -106,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onChanged: (text) {
                               enableLogin();
                             },
-                            type: TextInputType.name,
+                            type: TextInputType.text,
                             controller: loginPasswordController,
                             obsec: true,
                             text: 'Password',
@@ -125,8 +127,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                   isEmailValid = isValidEmail(
                                       loginEmailController.text.trim());
                                   if (isEmailValid) {
-                                    debugPrint(
-                                        '${loginEmailController.text.trim()} is a valid email');
+                                    try {
+                                      signInWithEmailAndPassword(
+                                          loginEmailController.text,
+                                          loginPasswordController.text);
+                                      debugPrint(
+                                          '${loginEmailController.text} & ${loginPasswordController.text}');
+                                    } catch (e) {
+                                      setState(() {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(e.toString())));
+                                      });
+                                    }
                                   } else {
                                     debugPrint(
                                         '${loginEmailController.text.trim()} is not a valid email');
