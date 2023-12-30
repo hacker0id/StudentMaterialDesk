@@ -17,15 +17,11 @@ class WelcomeScreen extends StatelessWidget {
     } else {
       college = 'Error';
     }
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(college),
-            const SizedBox(height: 10),
-            const Text('Welcome')
-          ],
+          children: [],
         ),
       ),
     );
