@@ -3,7 +3,8 @@ import 'package:smd/screens/MainPage.dart';
 import 'package:smd/theme/colors.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  String image;
+  Header({required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,8 @@ class Header extends StatelessWidget {
           child: Image(
             height: device.height * 0.5,
             width: device.width,
-            image: const AssetImage(
-              'assets/Images/logo/2.png',
+            image: AssetImage(
+              image,
             ),
           ),
         ),

@@ -44,7 +44,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: greenClr,
         body: Column(
           children: [
-            const Header(),
+            Header(
+              image: 'assets/Images/logo/2.png',
+            ),
             Expanded(
                 flex: device.height <= 680 ? 5 : 4,
                 child: Container(

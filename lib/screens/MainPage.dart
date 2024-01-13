@@ -22,7 +22,9 @@ class _MainPageState extends State<MainPage> {
       body: Column(
         children: [
           //*  Header Container
-          const Header(),
+          Header(
+            image: 'assets/Images/logo/2.png',
+          ),
 
           //* Lower Container
 
