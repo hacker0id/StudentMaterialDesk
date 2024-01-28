@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smd/Firebase/firebase_methods.dart';
-import 'package:smd/methods.dart';
+import 'package:smd/components/methods.dart';
 import 'package:smd/screens/MainPage.dart';
 import 'package:smd/screens/RegisterScreen.dart';
-import 'package:smd/screens/WelcomeScreen.dart';
 import 'package:smd/theme/colors.dart';
 import 'package:smd/widgets/button.dart';
 import 'package:smd/widgets/header.dart';
@@ -41,18 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     device = MediaQuery.sizeOf(context);
+
     return Scaffold(
       backgroundColor: greenClr,
       body: Column(
         children: [
-          GestureDetector(
-              child: Header(
-                image: 'assets/Images/logo/2.png',
-              ),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => WelcomeScreen()));
-              }),
+          Header(
+            image: 'assets/Images/logo/2.png',
+          ),
           Expanded(
             flex: device.height <= 680 ? 3 : 2,
             child: Container(

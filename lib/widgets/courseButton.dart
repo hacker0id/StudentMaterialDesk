@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,27 +28,31 @@ class _CourseButtonState extends State<CourseButton> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
+        //padding: EdgeInsets.all(20),
         decoration: const BoxDecoration(
             color: orangeClr,
             borderRadius: BorderRadius.all(Radius.circular(18))),
         height: device.height * 0.07,
-        width: device.width * 0.7,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              widget.buttonText,
-              style: const TextStyle(
-                fontFamily: 'fonts/Montserrat-Regular',
-                fontSize: 18,
+        width: device.width * 0.8,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                widget.buttonText,
+                style: const TextStyle(
+                  fontFamily: 'fonts/Montserrat-Regular',
+                  fontSize: 18,
+                ),
               ),
-            ),
-            SizedBox(width: device.width * 0.01),
-            Icon(
-              widget.icon,
-              size: 30,
-            ),
-          ],
+              SizedBox(width: device.width * 0.01),
+              Icon(
+                widget.icon,
+                size: 30,
+              ),
+            ],
+          ),
         ),
       ),
     );

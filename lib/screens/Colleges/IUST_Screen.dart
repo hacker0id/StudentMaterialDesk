@@ -1,22 +1,21 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:smd/screens/MainPage.dart';
-import 'package:smd/screens/test.dart';
 import 'package:smd/theme/colors.dart';
 import 'package:smd/widgets/courseButton.dart';
 import 'package:smd/widgets/courseDropDownButton.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+class IUST_Screen extends StatefulWidget {
+  const IUST_Screen({super.key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<IUST_Screen> createState() => _IUST_ScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _IUST_ScreenState extends State<IUST_Screen> {
   //....
   bool engineering = false;
   bool management = false;

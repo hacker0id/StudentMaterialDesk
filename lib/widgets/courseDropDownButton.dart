@@ -43,22 +43,25 @@ class CourseDropDownButton extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(18))),
       height: device.height * 0.055,
-      width: device.width * 0.6,
-      child: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SizedBox(width: device.width * 0.05),
-          Icon(icon),
-          SizedBox(width: device.width * 0.05),
-          Text(
-            textAlign: TextAlign.center,
-            text,
-            style: const TextStyle(
-              fontSize: 15,
-              fontFamily: 'fonts/Montserrat-Regular',
-            ),
-          )
-        ],
+      width: device.width * 0.65,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(width: device.width * 0.05),
+            Icon(icon),
+            SizedBox(width: device.width * 0.05),
+            Text(
+              textAlign: TextAlign.center,
+              text,
+              style: const TextStyle(
+                fontSize: 15,
+                fontFamily: 'fonts/Montserrat-Regular',
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

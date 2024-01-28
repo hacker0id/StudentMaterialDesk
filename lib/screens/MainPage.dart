@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:smd/theme/colors.dart';
 import 'package:smd/widgets/header.dart';
 import 'package:smd/widgets/onBoardingFooter.dart';
@@ -72,40 +73,37 @@ class _MainPageState extends State<MainPage> {
                 SizedBox(height: device.height * 0.015),
                 //* PageView Containers
 
-                Expanded(
-                  child: SizedBox(
-                    height: (device.height / 2) - 50,
-                    child: PageView(
-                      controller: pageController,
-                      children: [
-                        OnBoardingFooter(
+                SizedBox(
+                  height: (device.height / 2) - 50,
+                  child: PageView(
+                    controller: pageController,
+                    children: [
+                      OnBoardingFooter(
+                        endOfOnboarding: false,
+                        imageLocation: 'assets/Images/onBoarding/1.png',
+                        text:
+                            '📚 Discover Relevant Notes: Access a vast library of curated notes tailored to your courses. Download and study anytime, anywhere!',
+                      ),
+                      OnBoardingFooter(
                           endOfOnboarding: false,
-                          imageLocation: 'assets/Images/onBoarding/1.png',
+                          imageLocation: 'assets/Images/onBoarding/4.png',
                           text:
-                              '📚 Discover Relevant Notes: Access a vast library of curated notes tailored to your courses. Download and study anytime, anywhere!',
-                        ),
-                        OnBoardingFooter(
-                            endOfOnboarding: false,
-                            imageLocation: 'assets/Images/onBoarding/4.png',
-                            text:
-                                '🎥 Watch Educational Videos: Enhance your understanding with video lectures covering key topics. Visualize concepts to ace your exams!'),
-                        OnBoardingFooter(
-                            endOfOnboarding: false,
-                            imageLocation: 'assets/Images/onBoarding/6.png',
-                            text:
-                                '📝 Download Exam Papers: Prepare thoroughly with a collection of past exam papers. Practice makes perfect—get ready for success!'),
-                        OnBoardingFooter(
-                            endOfOnboarding: false,
-                            imageLocation: 'assets/Images/onBoarding/5.png',
-                            text:
-                                '🌟 Why SMD?\nTailored for students, by students !\nSeamless, user-friendly design.\nRegular updates.'),
-                        OnBoardingFooter(
-                            endOfOnboarding: true,
-                            imageLocation: 'assets/Images/onBoarding/2.png',
-                            text:
-                                '📱 Ready to Dive In? Let’s Ace Those Exams!'),
-                      ],
-                    ),
+                              '🎥 Watch Educational Videos: Enhance your understanding with video lectures covering key topics. Visualize concepts to ace your exams!'),
+                      OnBoardingFooter(
+                          endOfOnboarding: false,
+                          imageLocation: 'assets/Images/onBoarding/6.png',
+                          text:
+                              '📝 Download Exam Papers: Prepare thoroughly with a collection of past exam papers. Practice makes perfect—get ready for success!'),
+                      OnBoardingFooter(
+                          endOfOnboarding: false,
+                          imageLocation: 'assets/Images/onBoarding/5.png',
+                          text:
+                              '🌟 Why SMD?\nTailored for students, by students !\nSeamless, user-friendly design.\nRegular updates.'),
+                      OnBoardingFooter(
+                          endOfOnboarding: true,
+                          imageLocation: 'assets/Images/onBoarding/2.png',
+                          text: '📱 Ready to Dive In? Let’s Ace Those Exams!'),
+                    ],
                   ),
                 ),
               ]),

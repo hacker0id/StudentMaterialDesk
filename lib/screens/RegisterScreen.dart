@@ -1,15 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smd/Firebase/firebase_methods.dart';
 import 'package:smd/components/Controllers.dart';
-import 'package:smd/methods.dart';
+import 'package:smd/components/helpers.dart';
+import 'package:smd/components/methods.dart';
 import 'package:smd/screens/MainPage.dart';
-import 'package:smd/screens/WelcomeScreen.dart';
+import 'package:smd/screens/Colleges/SSM_Screen.dart';
+import 'package:smd/screens/popupScreen.dart';
 import 'package:smd/theme/colors.dart';
-import 'package:smd/widgets/RegisterCarousel.dart';
 import 'package:smd/widgets/button.dart';
 import 'package:smd/widgets/header.dart';
 import 'package:smd/widgets/textformfield.dart';
@@ -44,11 +46,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: greenClr,
         body: Column(
           children: [
-            Header(
-              image: 'assets/Images/logo/2.png',
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const PopUpScreen()));
+              },
+              child: Header(
+                image: 'assets/Images/logo/2.png',
+              ),
             ),
             Expanded(
-                flex: device.height <= 680 ? 5 : 4,
+                flex: device.height <= 680 ? 4 : 3,
                 child: Container(
                   decoration: const BoxDecoration(
                     boxShadow: [
@@ -175,42 +183,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     : SizedBox(height: device.height * 0.02),
 
                                 //* Input Fields End
-
-                                //* Carousel Slider Start
-
-                                SizedBox(
-                                  height: device.height * 0.16,
-                                  child: CarouselSlider(
-                                    options: CarouselOptions(
-                                      onPageChanged: (index, reason) {
-                                        setState(() {
-                                          currentIndex = index;
-                                        });
-                                      },
-                                      viewportFraction: 0.5,
-                                      height: device.height * 0.16,
-                                      enlargeCenterPage: true,
-                                      enlargeFactor: 0.5,
-                                      aspectRatio: 16 / 9,
-                                    ),
-                                    items: List.generate(3, (index) {
-                                      return BottomSlider(
-                                        index: index,
-                                        borderColor: borderColor[index],
-                                        onTap: () {
-                                          setState(() {
-                                            _enableSubmit = true;
-                                            borderColor = List.generate(
-                                                3, (index) => greenClr);
-                                            borderColor[index] = orangeClr;
-                                          });
-                                        },
-                                      );
-                                    }),
-                                  ),
-                                ),
-
-                                //* Carousel Slider End
                               ],
                             ),
                           ),
@@ -222,95 +194,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontSize: 16,
                               color: greenClr,
                               text: 'Submit',
-                              onPressed: _enableSubmit
+                              onPressed: () async {
+                                if (isValidEmail(
+                                        registerEmailController.text.trim()) &&
+                                    isValidPhoneNumber(
+                                        registerPhNumberController.text
+                                            .toString()
+                                            .trim()) &&
+                                    registerNameController.text.isNotEmpty &&
+                                    registerPasswordController
+                                        .text.isNotEmpty) {
+                                  registerUser(
+                                      registerEmailController.text.trim(),
+                                      registerPasswordController.text.trim());
 
-                                  //^ College Selected? Navigate To WelcomeScreen
-                                  ? () async {
-                                      if (isValidEmail(registerEmailController
-                                              .text
-                                              .trim()) &&
-                                          isValidPhoneNumber(
-                                              registerPhNumberController.text
-                                                  .toString()
-                                                  .trim())) {
-                                        registerUser(
-                                            registerEmailController.text.trim(),
-                                            registerPasswordController.text
-                                                .trim());
+                                  SnackbarService.showSMDSnackbar(
+                                      context, 'Registered Successfully !!');
 
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) =>
-                                                    const WelcomeScreen()));
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            elevation: 8,
-                                            duration:
-                                                const Duration(seconds: 2),
-                                            dismissDirection:
-                                                DismissDirection.up,
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(16),
-                                                topRight: Radius.circular(16),
-                                              ),
-                                            ),
-                                            backgroundColor:
-                                                orangeClr.withOpacity(0.72),
-                                            behavior: SnackBarBehavior.fixed,
-                                            content: const Center(
-                                              child: Text(
-                                                textAlign: TextAlign.center,
-                                                'Error While Registering\nPlease Check Your Details',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 16,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  :
-
-                                  //^ Show Snackbar
-
-                                  () {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          //width: device.width * 0.7,
-                                          elevation: 8,
-                                          duration: const Duration(seconds: 2),
-                                          dismissDirection: DismissDirection.up,
-                                          shape: const RoundedRectangleBorder(
-                                            // side: BorderSide(
-                                            //   // width: 2,
-                                            //   color: Colors.black,
-                                            // ),
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(16),
-                                              topRight: Radius.circular(16),
-                                            ),
-                                          ),
-                                          backgroundColor:
-                                              orangeClr.withOpacity(0.72),
-                                          behavior: SnackBarBehavior.fixed,
-                                          content: const Center(
-                                            child: Text(
-                                              'Choose College First',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                  Timer(const Duration(seconds: 2), () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SSM_Screen()));
+                                  });
+                                } else {
+                                  if (registerNameController.text.isEmpty) {
+                                    SnackbarService.showSMDSnackbar(
+                                        context, 'Please Enter Valid Name');
+                                  } else if (!isValidEmail(
+                                      registerEmailController.text.trim())) {
+                                    SnackbarService.showSMDSnackbar(
+                                        context, 'Please Enter Valid Email');
+                                  } else if (isValidPhoneNumber(
+                                      registerPhNumberController.text
+                                          .toString()
+                                          .trim())) {
+                                    SnackbarService.showSMDSnackbar(context,
+                                        'Please Enter Valid Phone Number');
+                                  } else if (registerPhNumberController
+                                      .text.isEmpty) {
+                                    SnackbarService.showSMDSnackbar(context,
+                                        'Please Enter Valid Phone Password');
+                                  } else {
+                                    SnackbarService.showSMDSnackbar(
+                                        context, 'Some Error Occured');
+                                  }
+                                }
+                              },
                               width: device.width * 0.4,
                             ),
                           ),
